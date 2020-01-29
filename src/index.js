@@ -10,19 +10,20 @@ function calculate(
   let expression = currExpression;
 
   if (isNumber(newAction)) {
+    const number = newAction;
     switch (true) {
       case prevAction === 'ac':
       case prevAction === '=':
-        display = newAction;
+        display = number;
         expression = '';
         break;
       case prevAction === '0' && display === '0':
       case isOperator(prevAction):
-        display = newAction;
+        display = number;
         break;
       case isNumber(prevAction):
       case prevAction === '.':
-        display = display.concat(newAction);
+        display = display.concat(number);
         break;
     }
   }
