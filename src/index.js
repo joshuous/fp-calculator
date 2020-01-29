@@ -6,9 +6,11 @@ function calculate(
   currDisplay = '0',
   currExpression = ''
 ) {
+  let display = currDisplay;
+  let expression = currExpression;
   return {
-    display: undefined,
-    expression: undefined,
+    display: display,
+    expression: expression,
   };
 }
 
