@@ -1,5 +1,15 @@
 'use strict';
 
-function calculate() {}
+function calculate(
+  newAction = 'ac',
+  prevAction = 'ac',
+  currDisplay = '0',
+  currExpression = ''
+) {
+  return {
+    display: undefined,
+    expression: undefined,
+  };
+}
 
 module.exports = calculate;
