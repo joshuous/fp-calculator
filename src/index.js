@@ -23,7 +23,7 @@ function calculate(
         break;
       case isNumber(prevAction):
       case prevAction === '.':
-        display = display.concat(number);
+        display = currDisplay.concat(number);
         break;
     }
   }
