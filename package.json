@@ -9,6 +9,8 @@
   "author": "joshuous",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/jest": "^25.1.0",
     "jest": "^25.1.0"
-  }
+  },
+  "dependencies": {}
 }
