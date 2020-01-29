@@ -116,7 +116,7 @@ describe('given new action is an operator', () => {
   });
 
   describe('given previous action is a number', () => {
-    test('display should be the evaluation of the current expression, and expression be appended with the current display and the operator', () => {
+    test('display should be the evaluation of the current expression, and expression should be appended with the current display and the operator', () => {
       const result = calc('-', '3', '73', '22+2*');
       expect(result.display).toBe('168');
       expect(result.expression).toBe('22+2*73-');
@@ -124,7 +124,7 @@ describe('given new action is an operator', () => {
   });
 
   describe('given previous action is a decimal point', () => {
-    test('display should be the evaluation of the current expression, and expression be appended with the current display (with trailing decimal points removed) and the operator', () => {
+    test('display should be the evaluation of the current expression, and expression should be appended with the current display (with trailing decimal points removed) and the operator', () => {
       const result = calc('-', '.', '73.', '22+2*');
       expect(result.display).toBe('168');
       expect(result.expression).toBe('22+2*73-');
