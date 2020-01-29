@@ -46,6 +46,23 @@ function calculate(
           .concat(operator);
         break;
     }
+  } else if (newAction === '.') {
+    switch (true) {
+      case prevAction === 'ac':
+      case prevAction === '=':
+        display = '0.';
+        expression = '';
+        break;
+      case isNumber(prevAction) && !currDisplay.includes('.'):
+        display = currDisplay.concat('.');
+        break;
+      case prevAction === '.':
+        //pass
+        break;
+      case isOperator(prevAction):
+        display = '0.';
+        break;
+    }
   }
 
   return {

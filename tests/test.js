@@ -139,3 +139,55 @@ describe('given new action is an operator', () => {
     });
   });
 });
+
+describe('given new action is a decimal point', () => {
+  describe('given previous action is "ac"', () => {
+    test('display should be "0.", and expression should be blank', () => {
+      const result = calc('.', 'ac', '0', '');
+      expect(result.display).toBe('0.');
+      expect(result.expression).toBe('');
+    });
+  });
+
+  describe('given previous action is "="', () => {
+    test('display should be "0.", and expression should be blank', () => {
+      const result = calc('.', '=', '10', '1+2+3+4=');
+      expect(result.display).toBe('0.');
+      expect(result.expression).toBe('');
+    });
+  });
+
+  describe('given previous action is a number', () => {
+    describe('given current display already has a decimal point', () => {
+      test('display and expression should be unchanged', () => {
+        const result = calc('.', '1', '67.31', '');
+        expect(result.display).toBe('67.31');
+        expect(result.expression).toBe('');
+      });
+    });
+
+    describe('given current display does NOT have a decimal point', () => {
+      test('display should be appended with a decimal point, and expression should be unchanged', () => {
+        const result = calc('.', '8', '28', '5+');
+        expect(result.display).toBe('28.');
+        expect(result.expression).toBe('5+');
+      });
+    });
+  });
+
+  describe('given previous action is a decimal point', () => {
+    test('display and expression should be unchanged', () => {
+      const result = calc('.', '.', '10.', '1+2+3+');
+      expect(result.display).toBe('10.');
+      expect(result.expression).toBe('1+2+3+');
+    });
+  });
+
+  describe('given previous action is an operator', () => {
+    test('display should be "0.", and expression should be unchanged', () => {
+      const result = calc('.', '*', '5', '3+2*');
+      expect(result.display).toBe('0.');
+      expect(result.expression).toBe('3+2*');
+    });
+  });
+});
