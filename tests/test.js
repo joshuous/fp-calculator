@@ -97,3 +97,45 @@ describe('given new action is a number', () => {
     });
   });
 });
+
+describe('given new action is an operator', () => {
+  describe('given previous action is "ac"', () => {
+    test('display should be unchanged, and expression should be the display appended with the operator', () => {
+      const result = calc('+', 'ac', '0', '');
+      expect(result.display).toBe('0');
+      expect(result.expression).toBe('0+');
+    });
+  });
+
+  describe('given previous action is "="', () => {
+    test('display should be unchanged, and expression should be the display appended with the operator', () => {
+      const result = calc('*', '=', '7', '3+4=');
+      expect(result.display).toBe('7');
+      expect(result.expression).toBe('7*');
+    });
+  });
+
+  describe('given previous action is a number', () => {
+    test('display should be the evaluation of the current expression, and expression be appended with the current display and the operator', () => {
+      const result = calc('-', '3', '73', '22+2*');
+      expect(result.display).toBe('168');
+      expect(result.expression).toBe('22+2*73-');
+    });
+  });
+
+  describe('given previous action is a decimal point', () => {
+    test('display should be the evaluation of the current expression, and expression be appended with the current display (with trailing decimal points removed) and the operator', () => {
+      const result = calc('-', '.', '73.', '22+2*');
+      expect(result.display).toBe('168');
+      expect(result.expression).toBe('22+2*73-');
+    });
+  });
+
+  describe('given previous action is an operator', () => {
+    test('display should be unchanged, and the last operator in the expression should be replaced with the new operator', () => {
+      const result = calc('/', '-', '123', '1+2+3-');
+      expect(result.display).toBe('123');
+      expect(result.expression).toBe('1+2+3/');
+    });
+  });
+});
