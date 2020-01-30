@@ -1,4 +1,4 @@
-const { calc, isValidExpression } = require('../src/index');
+const { calc, isValidExpression, isValidDisplay } = require('../src/index');
 
 it('should export a calculate function', () => {
   expect(typeof calc).toBe('function');
@@ -351,4 +351,79 @@ describe('isValidExpression', () => {
     const result6 = isValidExpression('0.343e+=');
     expect(result6).toBeFalsy();
   });
+});
+
+describe('isValidDisplay', () => {
+  it('should be a function', () => {
+    expect(typeof isValidDisplay).toBe('function');
+  });
+
+  it('should return a boolean', () => {
+    const result = isValidDisplay('');
+    expect(typeof result).toBe('boolean');
+  });
+
+  it('should return false if display is blank', () => {
+    const result = isValidDisplay('');
+    expect(result).toBeFalsy();
+  });
+
+  it('should return true if display is a positive number', () => {
+    const result1 = isValidDisplay('0');
+    expect(result1).toBeTruthy();
+
+    const result2 = isValidDisplay('925');
+    expect(result2).toBeTruthy();
+
+    const result3 = isValidDisplay('-1');
+    expect(result3).toBeFalsy();
+  });
+
+  it('should return true if display has a decimal point', () => {
+    const result1 = isValidDisplay('0.1');
+    expect(result1).toBeTruthy();
+
+    const result2 = isValidDisplay('15.23');
+    expect(result2).toBeTruthy();
+  });
+
+  it('should return false if display has more than one decimal point', () => {
+    const result1 = isValidDisplay('0.1.2');
+    expect(result1).toBeFalsy();
+
+    const result2 = isValidDisplay('23..2');
+    expect(result2).toBeFalsy();
+  });
+
+  it('should return false if display has leading zeroes', () => {
+    const result = isValidDisplay('0032');
+    expect(result).toBeFalsy();
+  });
+
+  it('should return true if display ends with a decimal point', () => {
+    const result = isValidDisplay('12.');
+    expect(result).toBeTruthy();
+  });
+
+  it('should return true if display has scientific (exponential) notation', () => {
+    const result1 = isValidDisplay('3.45572558e-16');
+    expect(result1).toBeTruthy();
+
+    const result2 = isValidDisplay('423.78255E+29');
+    expect(result2).toBeTruthy();
+
+    const result3 = isValidDisplay('0.343e+0');
+    expect(result3).toBeTruthy();
+
+    const result4 = isValidDisplay('0.343e2');
+    expect(result4).toBeTruthy();
+
+    const result5 = isValidDisplay('0.343e');
+    expect(result5).toBeFalsy();
+
+    const result6 = isValidDisplay('0.343e+');
+    expect(result6).toBeFalsy();
+  });
+
+  // TODO: Infinity, Not a Number, Divide by zero.
 });

@@ -124,3 +124,13 @@ exports.isValidExpression = expression => {
 
   return false;
 };
+
+const validDisplayRegex = /^(0|[1-9][0-9]*)(\.[0-9]*)?([eE][-+]?[0-9]+)?$/;
+
+exports.isValidDisplay = display => {
+  if (validDisplayRegex.test(display)) {
+    return true;
+  }
+
+  return false;
+};
