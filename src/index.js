@@ -1,11 +1,11 @@
 'use strict';
 
-function calculate(
+exports.calc = (
   newAction = 'ac',
   prevAction = 'ac',
   currDisplay = '0',
   currExpression = ''
-) {
+) => {
   let display = currDisplay;
   let expression = currExpression;
 
@@ -86,7 +86,7 @@ function calculate(
     display: display,
     expression: expression,
   };
-}
+};
 
 function evaluate(expression) {
   const answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
@@ -105,5 +105,3 @@ function isNumber(c) {
 function isOperator(c) {
   return '+-/*'.includes(c);
 }
-
-module.exports = calculate;
