@@ -105,3 +105,22 @@ function isNumber(c) {
 function isOperator(c) {
   return '+-/*'.includes(c);
 }
+
+/*
+ * WARNING: [+-/*] <- this matches a '*' or a character in range '+' to '/'.
+ * SOLUTION: Changing to [-+/*] matches a '-', '+', '/' or '*'.
+ */
+const numberRegex = '((0|[1-9][0-9]*)(\\.[0-9]+)?([eE][-+]?[0-9]+)?)';
+const numberOperatorRegex = '(' + numberRegex + '[-+/*]' + ')';
+const numberEqualRegex = '(' + numberRegex + '=' + ')';
+const validExpressionRegex = new RegExp(
+  '^' + numberOperatorRegex + '*' + numberEqualRegex + '?' + '$'
+);
+
+exports.isValidExpression = expression => {
+  if (validExpressionRegex.test(expression)) {
+    return true;
+  }
+
+  return false;
+};
