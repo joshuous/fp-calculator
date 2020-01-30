@@ -1,5 +1,12 @@
 'use strict';
 
+/**
+ * @param {string} newAction - New action to take.
+ * @param {string} prevAction - Previous action taken.
+ * @param {string} currDisplay - Current display.
+ * @param {string} currExpression - Current expression.
+ * @returns {Object} Calculation results containing the new display and expression.
+ */
 exports.calc = (
   newAction = 'ac',
   prevAction = 'ac',
@@ -106,10 +113,8 @@ function isOperator(c) {
   return '+-/*'.includes(c);
 }
 
-/*
- * WARNING: [+-/*] <- this matches a '*' or a character in range '+' to '/'.
- * SOLUTION: Changing to [-+/*] matches a '-', '+', '/' or '*'.
- */
+// WARNING: [+-/*] <- this matches a '*' or a character in range '+' to '/'.
+// SOLUTION: Changing to [-+/*] matches a '-', '+', '/' or '*'.
 const numberRegex = '((0|[1-9][0-9]*)(\\.[0-9]+)?([eE][-+]?[0-9]+)?)';
 const numberOperatorRegex = '(' + numberRegex + '[-+/*]' + ')';
 const numberEqualRegex = '(' + numberRegex + '=' + ')';
@@ -117,6 +122,10 @@ const validExpressionRegex = new RegExp(
   '^' + numberOperatorRegex + '*' + numberEqualRegex + '?' + '$'
 );
 
+/**
+ * @param {string} expression - Expression to validate.
+ * @returns {boolean} - Validation result.
+ */
 exports.isValidExpression = expression => {
   if (validExpressionRegex.test(expression)) {
     return true;
@@ -127,6 +136,10 @@ exports.isValidExpression = expression => {
 
 const validDisplayRegex = /^(0|[1-9][0-9]*)(\.[0-9]*)?([eE][-+]?[0-9]+)?$/;
 
+/**
+ * @param {string} display - Display to validate.
+ * @returns {boolean} - Validation result.
+ */
 exports.isValidDisplay = display => {
   if (validDisplayRegex.test(display)) {
     return true;
