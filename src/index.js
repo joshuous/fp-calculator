@@ -63,6 +63,23 @@ function calculate(
         display = '0.';
         break;
     }
+  } else if (newAction === '=') {
+    switch (true) {
+      case prevAction === 'ac':
+        expression = currDisplay.concat('=');
+        break;
+      case prevAction === '=':
+        //pass
+        break;
+      case isNumber(prevAction):
+      case prevAction === '.':
+      case isOperator(prevAction):
+        display = evaluate(currExpression.concat(currDisplay));
+        expression = currExpression
+          .concat(removeTrailingDecimals(currDisplay))
+          .concat('=');
+        break;
+    }
   }
 
   return {
