@@ -16,7 +16,10 @@ exports.calc = (
   let display = currDisplay;
   let expression = currExpression;
 
-  if (isNumber(newAction)) {
+  if (newAction === 'ac') {
+    display = '0';
+    expression = '';
+  } else if (isNumber(newAction)) {
     const number = newAction;
     switch (true) {
       case prevAction === 'ac':

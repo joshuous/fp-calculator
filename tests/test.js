@@ -13,9 +13,13 @@ it('should return an object with properties "expression" and "display"', () => {
 
 describe('given new action is "ac"', () => {
   it('should return display of "0" and blank expression', () => {
-    const result = calc('ac');
-    expect(result.display).toBe('0');
-    expect(result.expression).toBe('');
+    const result1 = calc('ac');
+    expect(result1.display).toBe('0');
+    expect(result1.expression).toBe('');
+
+    const result2 = calc('ac', '=', '10', '1+2+3+4=');
+    expect(result2.display).toBe('0');
+    expect(result2.expression).toBe('');
   });
 });
 
