@@ -136,10 +136,31 @@ describe('given new action is an operator', () => {
   });
 
   describe('given previous action is an operator', () => {
-    test('display should be unchanged, and the last operator in the expression should be replaced with the new operator', () => {
-      const result = calc('/', '-', '123', '1+2+3-');
-      expect(result.display).toBe('123');
-      expect(result.expression).toBe('1+2+3/');
+    describe('given new action is "-"', () => {
+      test('display should be unchanged, and the expression should be appended with "-" if it does not already end with "-"', () => {
+        const result1 = calc('-', '+', '6', '1+2+3+');
+        expect(result1.display).toBe('6');
+        expect(result1.expression).toBe('1+2+3+-');
+
+        const result2 = calc('-', '*', '6', '1+2+3*');
+        expect(result2.display).toBe('6');
+        expect(result2.expression).toBe('1+2+3*-');
+
+        const result3 = calc('-', '-', '6', '1+2+3-');
+        expect(result3.display).toBe('6');
+        expect(result3.expression).toBe('1+2+3-');
+      });
+    });
+    describe('given new action is "+", "*", or "/"', () => {
+      test('display should be unchanged, and the ending operators in the expression should be replaced with the new operator', () => {
+        const result1 = calc('/', '-', '6', '1+2+3-');
+        expect(result1.display).toBe('6');
+        expect(result1.expression).toBe('1+2+3/');
+
+        const result2 = calc('/', '-', '6', '1+2+3*-');
+        expect(result2.display).toBe('6');
+        expect(result2.expression).toBe('1+2+3/');
+      });
     });
   });
 });
@@ -328,12 +349,18 @@ describe('isValidExpression', () => {
     expect(result3).toBeFalsy();
   });
 
-  it('should return false if expression has consecutive operators', () => {
+  it('should return false if expression has consecutive operators, unless there are only two consecutive operators with the first being [+/*] and the second being "-"', () => {
     const result1 = isValidExpression('32++3=');
     expect(result1).toBeFalsy();
 
-    const result2 = isValidExpression('32+-5=');
+    const result2 = isValidExpression('32+--5=');
     expect(result2).toBeFalsy();
+
+    const result3 = isValidExpression('32+-5=');
+    expect(result3).toBeTruthy();
+
+    const result4 = isValidExpression('32/-5=');
+    expect(result4).toBeTruthy();
   });
 
   it('should return true for numbers in scientific (exponential) notation', () => {
