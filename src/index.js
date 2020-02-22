@@ -1,5 +1,8 @@
 'use strict';
 
+exports = module.exports = calc;
+exports.calc = calc;
+
 /**
  * @param {string} newAction - New action to take.
  * @param {string} prevAction - Previous action taken.
@@ -7,12 +10,12 @@
  * @param {string} currExpression - Current expression.
  * @returns {Object} Calculation results containing the new display and expression.
  */
-exports.calc = (
+function calc(
   newAction = 'ac',
   prevAction = 'ac',
   currDisplay = '0',
   currExpression = ''
-) => {
+) {
   let display = currDisplay;
   let expression = currExpression;
   let previousAction = newAction;
@@ -117,7 +120,7 @@ exports.calc = (
     expression: expression,
     prevAction: previousAction,
   };
-};
+}
 
 function evaluate(expression) {
   const answer = Math.round(1000000000000 * eval(expression)) / 1000000000000;
