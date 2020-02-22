@@ -15,6 +15,7 @@ exports.calc = (
 ) => {
   let display = currDisplay;
   let expression = currExpression;
+  let previousAction = newAction;
 
   if (newAction === 'ac') {
     display = '0';
@@ -105,11 +106,16 @@ exports.calc = (
           .concat('=');
         break;
     }
+  } else {
+    // newAction is not a valid action
+    // reset previousAction back to prevAction
+    previousAction = prevAction;
   }
 
   return {
     display: display,
     expression: expression,
+    prevAction: previousAction,
   };
 };
 
